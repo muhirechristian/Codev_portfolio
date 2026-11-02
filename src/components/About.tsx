@@ -1,0 +1,376 @@
+import { useState, useRef } from 'react';
+import { motion, useScroll, useTransform, MotionValue } from 'motion/react';
+import {
+  Layers,
+  Globe,
+  Database,
+  Cpu,
+  Server,
+  Code2,
+  Sparkles,
+  Smartphone,
+  Cloud,
+  Download,
+  Eye,
+} from 'lucide-react';
+import CvPreviewModal from './CvPreviewModal.tsx';
+
+interface WordSpanProps {
+  children: React.ReactNode;
+  progress: MotionValue<number>;
+  range: [number, number];
+}
+
+function WordSpan({ children, progress, range }: WordSpanProps) {
+  const opacity = useTransform(progress, range, [0.15, 1]);
+  return (
+    <motion.span style={{ opacity }} className="text-black">
+      {children}
+    </motion.span>
+  );
+}
+
+function TextReveal({
+  text,
+  progress,
+}: {
+  text: string;
+  progress: MotionValue<number>;
+}) {
+  const words = text.split(' ');
+  return (
+    <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal leading-[1.3] tracking-tight-custom text-black flex flex-wrap gap-x-[0.25em] gap-y-[0.1em]">
+      {words.map((word, i) => {
+        const start = (i / words.length) * 0.55;
+        const end = start + (1 / words.length) * 0.55;
+        return (
+          <WordSpan key={i} progress={progress} range={[start, end]}>
+            {word}
+          </WordSpan>
+        );
+      })}
+    </h2>
+  );
+}
+
+export default function About() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [showCvModal, setShowCvModal] = useState(false);
+  const cvFilePath = '/assets/aistudio/Muhire_Bagina_Christian5CV_a0cd1b7f.pdf';
+
+  const handleDownloadCv = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(cvFilePath);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = 'Muhire_Bagina_Christian_CV.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => window.URL.revokeObjectURL(blobUrl), 1000);
+    } catch {
+      window.open(cvFilePath, '_blank');
+    }
+  };
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const fadeInVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: (custom = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.46, 0.45, 0.94] as const,
+        delay: custom,
+      },
+    }),
+  };
+
+  const services = [
+    {
+      title: 'Full-Stack Development',
+      desc: 'End-to-end engineering from reactive frontends to high-throughput backend services.',
+      icon: Layers,
+    },
+    {
+      title: 'Web Development',
+      desc: 'Performant, accessible, and responsive modern web experiences crafted with React & Vite.',
+      icon: Globe,
+    },
+    {
+      title: 'Business Management Systems',
+      desc: 'Tailored enterprise software, inventory systems, and operational workflow platforms.',
+      icon: Server,
+    },
+    {
+      title: 'Database Development',
+      desc: 'Robust relational and document schemas utilizing MySQL, PostgreSQL, and MongoDB.',
+      icon: Database,
+    },
+    {
+      title: 'API Development',
+      desc: 'RESTful architectures, microservices, and secure third-party integrations with Node & Express.',
+      icon: Code2,
+    },
+    {
+      title: 'AI-Powered Applications',
+      desc: 'Intelligent automation, natural language workflows, and machine learning model integration.',
+      icon: Cpu,
+    },
+  ];
+
+  const codevSpecializations = [
+    {
+      title: 'Web Development',
+      desc: 'Building modern, responsive, and user-friendly websites and web applications using React.js, Node.js, Express.js, and Tailwind CSS.',
+      icon: Globe,
+    },
+    {
+      title: 'Mobile App Development',
+      desc: 'Creating high-performance cross-platform mobile applications using React Native and Flutter.',
+      icon: Smartphone,
+    },
+    {
+      title: 'Artificial Intelligence',
+      desc: 'Developing AI-powered solutions, intelligent systems, and machine learning applications using Python.',
+      icon: Cpu,
+    },
+    {
+      title: 'Database Management',
+      desc: 'Designing secure, normalized, and scalable database systems using MySQL, PostgreSQL, and MongoDB.',
+      icon: Database,
+    },
+    {
+      title: 'Software Engineering',
+      desc: 'Building institutional management systems, business automation tools, and customized software solutions.',
+      icon: Layers,
+    },
+    {
+      title: 'Cloud & Modern Tech',
+      desc: 'Exploring cloud computing, resilient APIs, cybersecurity best practices, and scalable software infrastructure.',
+      icon: Cloud,
+    },
+  ];
+
+  return (
+    <section id="about" className="bg-[#fafafa] relative z-10 border-t hairline">
+      {/* 250vh Sticky Text Reveal Section */}
+      <div ref={containerRef} style={{ height: '250vh' }}>
+        <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
+            <motion.div
+              className="lg:col-span-3"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.8 }}
+            >
+              <span className="text-xs tracking-[0.2em] uppercase text-neutral-400">
+                01 / About
+              </span>
+            </motion.div>
+            <div className="lg:col-span-9">
+              <TextReveal
+                text="Hey there! I'm Muhire Christian, a software developer from Rwanda passionate about building practical digital solutions through software engineering, full-stack development and artificial intelligence."
+                progress={scrollYProgress}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Narrative & Details Section */}
+      <div className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto pb-32 lg:pb-48">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="grid lg:grid-cols-12 gap-12 lg:gap-20"
+        >
+          <div className="lg:col-span-3 hidden lg:block" />
+          <div className="lg:col-span-9">
+            {/* Two Narrative Paragraphs */}
+            <motion.div
+              className="grid md:grid-cols-2 gap-12"
+              custom={0.1}
+              variants={fadeInVariants}
+            >
+              <div>
+                <p className="text-neutral-600 font-normal leading-relaxed">
+                  My journey in tech began with intensive studies in Software Development at
+                  <strong> Lycee Saint Alexandre Sauli De Muhura</strong> (Technical and Vocational
+                  Education and Training &ndash; TVET Level 5, September 2022 – July 2025). There, I built
+                  a strong foundation in data structures, algorithms, relational databases, and full-stack
+                  engineering, graduating with top honors in national examinations.
+                </p>
+              </div>
+              <div>
+                <p className="text-neutral-600 font-normal leading-relaxed">
+                  Through hands-on software development, technology training at CA TechWorks, and mentoring
+                  activities including the <strong>EjoLabs Summer Talent Program 2026</strong>, I champion
+                  clean code, minimal design, and experiences that feel effortless. Whether deploying React,
+                  Node.js, Express, Python, or AI-assisted solutions, I am driven to build practical software
+                  that solves real problems.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Core Services Grid */}
+            <motion.div
+              className="mt-16 pt-16 border-t hairline"
+              custom={0.2}
+              variants={fadeInVariants}
+            >
+              <div className="mb-10">
+                <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 block mb-3 font-medium">
+                  What I Do
+                </span>
+                <h3 className="text-2xl md:text-3xl font-normal text-black tracking-tight-custom">
+                  Services & Solutions
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {services.map((service) => {
+                  const Icon = service.icon;
+                  return (
+                    <div
+                      key={service.title}
+                      className="p-6 border hairline bg-white rounded-xl hover:border-black transition-all duration-300 group shadow-xs hover:shadow-md"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-neutral-100 flex items-center justify-center text-neutral-700 group-hover:bg-black group-hover:text-white transition-colors mb-5">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <h4 className="text-base font-medium text-black mb-2">
+                        {service.title}
+                      </h4>
+                      <p className="text-xs text-neutral-500 leading-relaxed">
+                        {service.desc}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+
+            {/* My Vision for Codev (Replaces YouTube video) */}
+            <motion.div
+              className="mt-16 pt-16 border-t hairline"
+              custom={0.3}
+              variants={fadeInVariants}
+            >
+              <div className="p-8 sm:p-12 rounded-3xl bg-neutral-900 text-white relative overflow-hidden border border-neutral-800 shadow-xl">
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Sparkles className="w-5 h-5 text-amber-400" />
+                    <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 font-medium">
+                      Future Roadmap & Venture
+                    </span>
+                  </div>
+
+                  <h3 className="text-2xl sm:text-3xl lg:text-4xl font-normal tracking-tight text-white mb-6">
+                    My Vision for Codev –{' '}
+                    <span className="text-neutral-400">
+                      Building Technology That Matters
+                    </span>
+                  </h3>
+
+                  <p className="text-neutral-300 text-base sm:text-lg leading-relaxed max-w-3xl mb-10 font-normal">
+                    My long-term vision is to establish <strong>Codev</strong>, a technology company
+                    dedicated to developing innovative digital solutions that solve real-world problems
+                    and create meaningful impact in society.
+                  </p>
+
+                  <div className="mb-6">
+                    <span className="text-xs tracking-[0.15em] uppercase text-neutral-400 font-semibold block mb-4">
+                      I Envision Codev Specializing In:
+                    </span>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {codevSpecializations.map((item) => {
+                        const ItemIcon = item.icon;
+                        return (
+                          <div
+                            key={item.title}
+                            className="p-5 rounded-2xl bg-neutral-800/70 border border-neutral-700/60 hover:border-neutral-500 transition-colors"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-neutral-700/50 flex items-center justify-center text-amber-300 mb-3">
+                              <ItemIcon className="w-4 h-4" />
+                            </div>
+                            <h4 className="text-sm font-semibold text-white mb-1.5">
+                              {item.title}
+                            </h4>
+                            <p className="text-xs text-neutral-400 leading-relaxed font-normal">
+                              {item.desc}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="mt-8 p-6 sm:p-8 rounded-2xl bg-neutral-800/40 border border-neutral-700/50 relative">
+                    <p className="text-neutral-300 leading-relaxed text-sm sm:text-base font-normal">
+                      &ldquo;My ambition is to grow Codev into a company that empowers businesses,
+                      improves people&apos;s lives through technology, creates employment opportunities
+                      for young people, and contributes to Rwanda&apos;s digital transformation.
+                      <br />
+                      <br />
+                      I believe education, creativity, innovation, and determination will help me turn
+                      this vision into reality. I do not simply want to become a software developer; I
+                      want to become a technology entrepreneur who builds solutions that make a
+                      difference.&rdquo;
+                    </p>
+                    <p className="mt-4 text-xs font-mono tracking-widest text-neutral-400 uppercase">
+                      &mdash; Muhire Bagina Christian
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Resume & CV Section */}
+            <motion.div
+              className="mt-12 flex flex-wrap items-center gap-4"
+              custom={0.4}
+              variants={fadeInVariants}
+            >
+              {/* Primary Download Button */}
+              <button
+                type="button"
+                onClick={handleDownloadCv}
+                className="inline-flex items-center gap-3 px-8 py-4 border border-black rounded-full text-sm font-medium text-black hover:bg-black hover:text-white transition-all duration-300 group cursor-pointer"
+              >
+                <Download className="w-4 h-4 transition-transform group-hover:translate-y-0.5" />
+                <span>Download Official CV (PDF)</span>
+              </button>
+
+              {/* In-Browser Preview Button */}
+              <button
+                type="button"
+                onClick={() => setShowCvModal(true)}
+                className="inline-flex items-center gap-2 px-6 py-4 rounded-full border hairline text-sm font-medium text-neutral-600 hover:text-black hover:border-black bg-white transition-all duration-300 cursor-pointer"
+              >
+                <Eye className="w-4 h-4" />
+                <span>Preview CV</span>
+              </button>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* CV Interactive Preview Modal */}
+      <CvPreviewModal
+        isOpen={showCvModal}
+        onClose={() => setShowCvModal(false)}
+        pdfUrl={cvFilePath}
+      />
+    </section>
+  );
+}
