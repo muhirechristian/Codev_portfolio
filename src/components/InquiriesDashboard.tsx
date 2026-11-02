@@ -67,19 +67,19 @@ export default function InquiriesDashboard({ onClose }: InquiriesDashboardProps)
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 overflow-y-auto bg-[#fafafa]">
+      <div className="fixed inset-0 z-50 overflow-y-auto bg-[#fafafa] dark:bg-[#0c0d0e] transition-colors duration-300">
         <div className="min-h-screen pt-12 pb-24 px-6 md:px-12 lg:px-20 max-w-6xl mx-auto">
           {/* Top Bar */}
           <div className="flex items-center justify-between mb-12">
             <button
               onClick={onClose}
-              className="inline-flex items-center gap-2 text-sm font-medium text-neutral-600 hover:text-black transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Portfolio</span>
             </button>
 
-            <span className="text-[10px] tracking-[0.2em] uppercase font-mono px-3 py-1 rounded-full bg-neutral-200 text-neutral-700">
+            <span className="text-[10px] tracking-[0.2em] uppercase font-mono px-3 py-1 rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300">
               Admin &middot; Inquiries
             </span>
           </div>
@@ -87,17 +87,17 @@ export default function InquiriesDashboard({ onClose }: InquiriesDashboardProps)
           {/* Header Row */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-16">
             <div>
-              <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 block mb-2 font-medium">
+              <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500 block mb-2 font-medium">
                 Received Messages
               </span>
-              <h1 className="text-4xl md:text-5xl font-normal tracking-tight text-black">
+              <h1 className="text-4xl md:text-5xl font-normal tracking-tight text-black dark:text-white">
                 Inquiries
               </h1>
             </div>
 
             <button
               onClick={fetchMessages}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full text-sm font-medium hover:scale-105 transition-transform cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-black dark:bg-white text-white dark:text-black rounded-full text-sm font-medium hover:scale-105 transition-all cursor-pointer"
             >
               <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
               <span>Refresh</span>
@@ -107,15 +107,15 @@ export default function InquiriesDashboard({ onClose }: InquiriesDashboardProps)
           {/* Messages Content */}
           {loading ? (
             <div className="flex justify-center items-center h-64">
-              <div className="w-8 h-8 border-2 border-black border-t-transparent rounded-full animate-spin" />
+              <div className="w-8 h-8 border-2 border-black dark:border-white border-t-transparent rounded-full animate-spin" />
             </div>
           ) : messages.length === 0 ? (
-            <div className="text-center py-24 border border-dashed border-neutral-300 rounded-3xl bg-white/50 p-8">
-              <MessageSquare className="w-12 h-12 text-neutral-300 mx-auto mb-4" />
-              <h3 className="text-xl font-medium text-neutral-800 mb-2">
+            <div className="text-center py-24 border border-dashed border-neutral-300 dark:border-neutral-800 rounded-3xl bg-white/50 dark:bg-neutral-900/50 p-8">
+              <MessageSquare className="w-12 h-12 text-neutral-300 dark:text-neutral-600 mx-auto mb-4" />
+              <h3 className="text-xl font-medium text-neutral-800 dark:text-neutral-200 mb-2">
                 No inquiries yet
               </h3>
-              <p className="text-neutral-500 text-sm max-w-sm mx-auto">
+              <p className="text-neutral-500 dark:text-neutral-400 text-sm max-w-sm mx-auto">
                 New inquiries submitted through the contact form will appear here in real time.
               </p>
             </div>
@@ -128,25 +128,25 @@ export default function InquiriesDashboard({ onClose }: InquiriesDashboardProps)
                   initial="hidden"
                   animate="visible"
                   variants={itemVariants}
-                  className="bg-white border hairline p-8 md:p-10 rounded-2xl hover:border-black transition-all duration-500 shadow-xs hover:shadow-xl hover:shadow-black/5"
+                  className="bg-white dark:bg-neutral-900/80 border hairline p-8 md:p-10 rounded-2xl hover:border-black dark:hover:border-white transition-all duration-500 shadow-xs hover:shadow-xl hover:shadow-black/5"
                 >
                   <div className="flex flex-col md:flex-row justify-between gap-6">
                     <div className="flex-1">
                       <div className="flex flex-wrap items-center gap-6 mb-6">
-                        <div className="flex items-center gap-2 text-xs font-bold text-black uppercase tracking-wider">
+                        <div className="flex items-center gap-2 text-xs font-bold text-black dark:text-white uppercase tracking-wider">
                           <User className="w-3.5 h-3.5 text-neutral-400" />
                           <span>{item.name}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-xs font-medium text-neutral-400 uppercase tracking-wider">
-                          <Mail className="w-3.5 h-3.5 text-neutral-300" />
+                        <div className="flex items-center gap-2 text-xs font-medium text-neutral-400 dark:text-neutral-400 uppercase tracking-wider">
+                          <Mail className="w-3.5 h-3.5 text-neutral-400" />
                           <a
                             href={`mailto:${item.email}`}
-                            className="hover:text-black transition-colors"
+                            className="hover:text-black dark:hover:text-white transition-colors"
                           >
                             {item.email}
                           </a>
                         </div>
-                        <div className="flex items-center gap-2 text-[10px] font-bold text-neutral-300 uppercase tracking-[0.2em] ml-auto">
+                        <div className="flex items-center gap-2 text-[10px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-[0.2em] ml-auto">
                           <Clock className="w-3 h-3" />
                           <span>
                             {item.createdAt
@@ -160,14 +160,14 @@ export default function InquiriesDashboard({ onClose }: InquiriesDashboardProps)
                         </div>
                       </div>
 
-                      <p className="text-neutral-600 text-lg leading-relaxed font-normal whitespace-pre-wrap">
+                      <p className="text-neutral-600 dark:text-neutral-300 text-lg leading-relaxed font-normal whitespace-pre-wrap">
                         {item.message}
                       </p>
                     </div>
 
                     <button
                       onClick={() => handleDelete(item._id)}
-                      className="self-start p-3 text-neutral-300 hover:text-red-500 transition-colors cursor-pointer"
+                      className="self-start p-3 text-neutral-400 hover:text-red-500 transition-colors cursor-pointer"
                       title="Delete inquiry"
                       aria-label="Delete inquiry"
                     >

@@ -24,7 +24,7 @@ interface WordSpanProps {
 function WordSpan({ children, progress, range }: WordSpanProps) {
   const opacity = useTransform(progress, range, [0.15, 1]);
   return (
-    <motion.span style={{ opacity }} className="text-black">
+    <motion.span style={{ opacity }} className="text-black dark:text-white transition-colors duration-200">
       {children}
     </motion.span>
   );
@@ -39,7 +39,7 @@ function TextReveal({
 }) {
   const words = text.split(' ');
   return (
-    <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal leading-[1.3] tracking-tight-custom text-black flex flex-wrap gap-x-[0.25em] gap-y-[0.1em]">
+    <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal leading-[1.3] tracking-tight-custom text-black dark:text-white flex flex-wrap gap-x-[0.25em] gap-y-[0.1em]">
       {words.map((word, i) => {
         const start = (i / words.length) * 0.55;
         const end = start + (1 / words.length) * 0.55;
@@ -161,7 +161,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="bg-[#fafafa] relative z-10 border-t hairline">
+    <section id="about" className="bg-[#fafafa] dark:bg-[#0c0d0e] relative z-10 border-t hairline transition-colors duration-300">
       {/* 250vh Sticky Text Reveal Section */}
       <div ref={containerRef} style={{ height: '250vh' }}>
         <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
@@ -172,7 +172,7 @@ export default function About() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, amount: 0.8 }}
             >
-              <span className="text-xs tracking-[0.2em] uppercase text-neutral-400">
+              <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500 font-medium">
                 01 / About
               </span>
             </motion.div>
@@ -203,18 +203,18 @@ export default function About() {
               variants={fadeInVariants}
             >
               <div>
-                <p className="text-neutral-600 font-normal leading-relaxed">
+                <p className="text-neutral-600 dark:text-neutral-300 font-normal leading-relaxed">
                   My journey in tech began with intensive studies in Software Development at
-                  <strong> Lycee Saint Alexandre Sauli De Muhura</strong> (Technical and Vocational
+                  <strong className="text-black dark:text-white"> Lycee Saint Alexandre Sauli De Muhura</strong> (Technical and Vocational
                   Education and Training &ndash; TVET Level 5, September 2022 – July 2025). There, I built
                   a strong foundation in data structures, algorithms, relational databases, and full-stack
                   engineering, graduating with top honors in national examinations.
                 </p>
               </div>
               <div>
-                <p className="text-neutral-600 font-normal leading-relaxed">
+                <p className="text-neutral-600 dark:text-neutral-300 font-normal leading-relaxed">
                   Through hands-on software development, technology training at CA TechWorks, and mentoring
-                  activities including the <strong>EjoLabs Summer Talent Program 2026</strong>, I champion
+                  activities including the <strong className="text-black dark:text-white">EjoLabs Summer Talent Program 2026</strong>, I champion
                   clean code, minimal design, and experiences that feel effortless. Whether deploying React,
                   Node.js, Express, Python, or AI-assisted solutions, I am driven to build practical software
                   that solves real problems.
@@ -229,10 +229,10 @@ export default function About() {
               variants={fadeInVariants}
             >
               <div className="mb-10">
-                <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 block mb-3 font-medium">
+                <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500 block mb-3 font-medium">
                   What I Do
                 </span>
-                <h3 className="text-2xl md:text-3xl font-normal text-black tracking-tight-custom">
+                <h3 className="text-2xl md:text-3xl font-normal text-black dark:text-white tracking-tight-custom">
                   Services & Solutions
                 </h3>
               </div>
@@ -243,15 +243,15 @@ export default function About() {
                   return (
                     <div
                       key={service.title}
-                      className="p-6 border hairline bg-white rounded-xl hover:border-black transition-all duration-300 group shadow-xs hover:shadow-md"
+                      className="p-6 border hairline bg-white dark:bg-neutral-900/70 rounded-xl hover:border-black dark:hover:border-white transition-all duration-300 group shadow-xs hover:shadow-md"
                     >
-                      <div className="w-10 h-10 rounded-lg bg-neutral-100 flex items-center justify-center text-neutral-700 group-hover:bg-black group-hover:text-white transition-colors mb-5">
+                      <div className="w-10 h-10 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-700 dark:text-neutral-200 group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-colors mb-5">
                         <Icon className="w-5 h-5" />
                       </div>
-                      <h4 className="text-base font-medium text-black mb-2">
+                      <h4 className="text-base font-medium text-black dark:text-white mb-2">
                         {service.title}
                       </h4>
-                      <p className="text-xs text-neutral-500 leading-relaxed">
+                      <p className="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed">
                         {service.desc}
                       </p>
                     </div>
@@ -345,7 +345,7 @@ export default function About() {
               <button
                 type="button"
                 onClick={handleDownloadCv}
-                className="inline-flex items-center gap-3 px-8 py-4 border border-black rounded-full text-sm font-medium text-black hover:bg-black hover:text-white transition-all duration-300 group cursor-pointer"
+                className="inline-flex items-center gap-3 px-8 py-4 border border-black dark:border-white rounded-full text-sm font-medium text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 group cursor-pointer"
               >
                 <Download className="w-4 h-4 transition-transform group-hover:translate-y-0.5" />
                 <span>Download Official CV (PDF)</span>
@@ -355,7 +355,7 @@ export default function About() {
               <button
                 type="button"
                 onClick={() => setShowCvModal(true)}
-                className="inline-flex items-center gap-2 px-6 py-4 rounded-full border hairline text-sm font-medium text-neutral-600 hover:text-black hover:border-black bg-white transition-all duration-300 cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-4 rounded-full border hairline text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-black dark:hover:text-white hover:border-black dark:hover:border-white bg-white dark:bg-neutral-900 transition-all duration-300 cursor-pointer"
               >
                 <Eye className="w-4 h-4" />
                 <span>Preview CV</span>

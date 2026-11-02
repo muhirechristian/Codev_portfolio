@@ -62,7 +62,7 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
 
           {/* Modal Card Window */}
           <motion.div
-            className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border hairline overflow-hidden z-20 my-auto pointer-events-auto"
+            className="relative w-full max-w-2xl bg-white dark:bg-neutral-900 rounded-3xl shadow-2xl border hairline overflow-hidden z-20 my-auto pointer-events-auto"
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -70,9 +70,9 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header Bar */}
-            <div className="flex items-center justify-between px-6 sm:px-8 py-5 border-b hairline bg-neutral-50/70">
+            <div className="flex items-center justify-between px-6 sm:px-8 py-5 border-b hairline bg-neutral-50/70 dark:bg-neutral-950/70">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-white border hairline flex items-center justify-center shadow-xs">
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-neutral-800 border hairline flex items-center justify-center shadow-xs">
                   <img
                     src={certificate.icon}
                     alt={certificate.name}
@@ -80,10 +80,10 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
                   />
                 </div>
                 <div>
-                  <span className="text-[10px] tracking-[0.2em] uppercase text-neutral-400 font-semibold block">
+                  <span className="text-[10px] tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500 font-semibold block">
                     Verified Credential
                   </span>
-                  <h3 className="text-base sm:text-lg font-semibold text-neutral-900 leading-tight">
+                  <h3 className="text-base sm:text-lg font-semibold text-neutral-900 dark:text-white leading-tight">
                     {certificate.name}
                   </h3>
                 </div>
@@ -96,7 +96,7 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
                   e.stopPropagation();
                   onClose();
                 }}
-                className="w-10 h-10 rounded-full bg-neutral-200/70 hover:bg-neutral-300 flex items-center justify-center text-neutral-700 hover:text-black transition-colors cursor-pointer z-30 focus:outline-none"
+                className="w-10 h-10 rounded-full bg-neutral-200/70 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 flex items-center justify-center text-neutral-700 dark:text-neutral-200 hover:text-black dark:hover:text-white transition-colors cursor-pointer z-30 focus:outline-none"
                 aria-label="Close certificate modal"
               >
                 <X className="w-5 h-5" />
@@ -106,20 +106,20 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
             {/* Certificate Body */}
             <div className="p-6 sm:p-8 space-y-6 max-h-[75vh] overflow-y-auto">
               {/* Certificate Preview Card */}
-              <div className="relative p-6 sm:p-8 rounded-2xl border-2 border-neutral-100 bg-linear-to-b from-neutral-50 to-white text-center">
-                <div className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-emerald-600 mb-2">
+              <div className="relative p-6 sm:p-8 rounded-2xl border-2 border-neutral-100 dark:border-neutral-800 bg-linear-to-b from-neutral-50 to-white dark:from-neutral-950 dark:to-neutral-900 text-center">
+                <div className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 mb-2">
                   <ShieldCheck className="w-4 h-4" />
                   <span>Officially Verified Certificate</span>
                 </div>
 
-                <h4 className="text-xl sm:text-2xl font-semibold text-neutral-900 mb-1">
+                <h4 className="text-xl sm:text-2xl font-semibold text-neutral-900 dark:text-white mb-1">
                   {certificate.name}
                 </h4>
-                <p className="text-sm font-medium text-neutral-500 mb-4">
+                <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400 mb-4">
                   Issued by {certificate.issuer}
                 </p>
 
-                <div className="inline-flex flex-wrap items-center justify-center gap-4 sm:gap-6 py-2.5 px-5 bg-white border hairline rounded-full shadow-xs text-xs text-neutral-600">
+                <div className="inline-flex flex-wrap items-center justify-center gap-4 sm:gap-6 py-2.5 px-5 bg-white dark:bg-neutral-800 border hairline rounded-full shadow-xs text-xs text-neutral-600 dark:text-neutral-300">
                   <span className="flex items-center gap-1.5 font-mono">
                     <Award className="w-3.5 h-3.5 text-neutral-400" />
                     ID: {certificate.credentialId}
@@ -130,23 +130,23 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
                   </span>
                 </div>
 
-                <p className="text-sm text-neutral-600 leading-relaxed mt-6 max-w-lg mx-auto">
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed mt-6 max-w-lg mx-auto">
                   {certificate.description}
                 </p>
               </div>
 
               {/* Skills Covered */}
               <div>
-                <h5 className="text-xs tracking-[0.15em] uppercase text-neutral-400 font-semibold mb-3">
+                <h5 className="text-xs tracking-[0.15em] uppercase text-neutral-400 dark:text-neutral-500 font-semibold mb-3">
                   Competencies & Domain Skills
                 </h5>
                 <div className="flex flex-wrap gap-2">
                   {certificate.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 text-xs font-medium text-neutral-700"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-xs font-medium text-neutral-700 dark:text-neutral-200"
                     >
-                      <CheckCircle2 className="w-3.5 h-3.5 text-black" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                       {skill}
                     </span>
                   ))}
@@ -155,7 +155,7 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
 
               {/* Verification & Action Bar */}
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t hairline">
-                <div className="flex items-center gap-2 text-xs text-neutral-500">
+                <div className="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
                   <span className="w-2 h-2 rounded-full bg-emerald-500" />
                   <span>Verified in institutional record registers</span>
                 </div>
@@ -166,7 +166,7 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
                       href={certificate.certLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-black text-white text-xs font-medium hover:bg-neutral-800 transition-colors"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-black dark:bg-white text-white dark:text-black text-xs font-medium hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors"
                     >
                       <span>Verify Issuer</span>
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -179,7 +179,7 @@ export default function CertificateModal({ certificate, onClose }: CertificateMo
                       e.stopPropagation();
                       onClose();
                     }}
-                    className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-xs font-medium transition-colors cursor-pointer"
+                    className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 text-xs font-medium transition-colors cursor-pointer"
                   >
                     Close
                   </button>

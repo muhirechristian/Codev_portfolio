@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useTheme } from '../context/ThemeContext.tsx';
 
 interface CounterProps {
   from?: number;
@@ -31,6 +32,7 @@ function AnimatedCounter({ from = 0, to, duration = 2 }: CounterProps) {
 }
 
 export default function Hero() {
+  const { theme } = useTheme();
   const [isDesktop, setIsDesktop] = useState(
     typeof window !== 'undefined' ? window.innerWidth >= 1024 : true
   );
@@ -95,7 +97,7 @@ export default function Hero() {
       <AnimatePresence>
         {showIntro && (
           <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#fafafa]"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#fafafa] dark:bg-[#0c0d0e] transition-colors duration-300"
             exit={{ opacity: 0, transition: { duration: 0.8, ease: 'easeInOut' } }}
           >
             <motion.div
@@ -110,7 +112,11 @@ export default function Hero() {
               <motion.h1
                 layoutId="hello-text"
                 className={`whitespace-nowrap w-max text-[clamp(10rem,30vw,24rem)] font-thin tracking-[-0.03em] ${
-                  isDesktop ? 'hello-premium-glass' : 'hello-mobile-glass'
+                  isDesktop
+                    ? theme === 'dark'
+                      ? 'hello-premium-glass-on-dark'
+                      : 'hello-premium-glass'
+                    : 'hello-mobile-glass'
                 }`}
               >
                 Hello
@@ -121,7 +127,7 @@ export default function Hero() {
       </AnimatePresence>
 
       {/* Hero Main Section */}
-      <section className="relative h-screen max-sm:h-[90vh] overflow-hidden bg-[#fafafa] bg-grid-pattern">
+      <section className="relative h-screen max-sm:h-[90vh] overflow-hidden bg-[#fafafa] dark:bg-[#0c0d0e] bg-grid-pattern transition-colors duration-300">
         <div className="relative flex h-full flex-col lg:flex-row">
           {/* Portrait Image (Right Half on Desktop) - Authentic 100% User Photo */}
           <motion.div
@@ -135,7 +141,7 @@ export default function Hero() {
             }}
           >
             {/* Subtle left blend scrim on desktop for seamless contrast transition */}
-            <div className="hidden lg:block absolute inset-y-0 left-0 w-28 bg-linear-to-r from-[#fafafa] to-transparent z-10 pointer-events-none" />
+            <div className="hidden lg:block absolute inset-y-0 left-0 w-28 bg-linear-to-r from-[#fafafa] dark:from-[#0c0d0e] to-transparent z-10 pointer-events-none transition-colors duration-300" />
 
             <img
               src="/assets/aistudio/IMG-20260120-WA0019_1__a7d1fd51.jpg"
@@ -158,11 +164,11 @@ export default function Hero() {
                 custom={0.3 + idx * 0.1}
                 variants={statVariants}
               >
-                <span className="text-[3rem] sm:text-5xl font-normal tracking-tight text-black">
+                <span className="text-[3rem] sm:text-5xl font-normal tracking-tight text-black dark:text-white">
                   <AnimatedCounter from={0} to={item.value} />
                   {item.suffix}
                 </span>
-                <p className="text-[10px] sm:text-xs text-black/60 mt-0.5 uppercase tracking-[0.12em]">
+                <p className="text-[10px] sm:text-xs text-black/60 dark:text-neutral-400 mt-0.5 uppercase tracking-[0.12em]">
                   {item.label}
                 </p>
               </motion.div>
@@ -182,11 +188,11 @@ export default function Hero() {
                 custom={0.3 + idx * 0.1}
                 variants={statVariants}
               >
-                <span className="text-6xl lg:text-7xl font-normal tracking-tight text-black">
+                <span className="text-6xl lg:text-7xl font-normal tracking-tight text-black dark:text-white">
                   <AnimatedCounter from={0} to={item.value} />
                   {item.suffix}
                 </span>
-                <p className="text-xs text-black/55 mt-1 uppercase tracking-[0.14em]">
+                <p className="text-xs text-black/55 dark:text-neutral-400 mt-1 uppercase tracking-[0.14em]">
                   {item.label}
                 </p>
               </motion.div>
@@ -220,7 +226,11 @@ export default function Hero() {
                     <motion.h1
                       layoutId="hello-text"
                       className={`whitespace-nowrap w-max text-[clamp(4.5rem,15vw,16rem)] lg:text-[clamp(7rem,20vw,16rem)] font-thin leading-[0.82] tracking-[-0.03em] ${
-                        isDesktop ? 'hello-premium-glass' : 'hello-mobile-glass'
+                        isDesktop
+                          ? theme === 'dark'
+                            ? 'hello-premium-glass-on-dark'
+                            : 'hello-premium-glass'
+                          : 'hello-mobile-glass'
                       }`}
                       transition={{
                         type: 'spring',
@@ -237,13 +247,13 @@ export default function Hero() {
 
               {/* Subtitle Words - Positioned down at bottom with clean white frosted backdrop card */}
               <motion.div
-                className="mt-2 lg:mt-6 bg-white/90 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 md:p-5 border border-white/80 shadow-md inline-block max-w-full lg:max-w-xl"
+                className="mt-2 lg:mt-6 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 md:p-5 border border-white/80 dark:border-white/15 shadow-md inline-block max-w-full lg:max-w-xl transition-colors duration-300"
                 custom={0.18}
                 variants={statVariants}
               >
-                <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal leading-[1.25] tracking-tight-custom text-black">
-                  I am <span className="text-black font-bold">Muhire Christian</span>
-                  <span className="block mt-1 text-black font-semibold text-base sm:text-lg md:text-2xl lg:text-3xl tracking-tight">
+                <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal leading-[1.25] tracking-tight-custom text-black dark:text-white">
+                  I am <span className="text-black dark:text-white font-bold">Muhire Christian</span>
+                  <span className="block mt-1 text-black dark:text-neutral-200 font-semibold text-base sm:text-lg md:text-2xl lg:text-3xl tracking-tight">
                     Software Engineer | Full-Stack Developer | AI Enthusiast
                   </span>
                 </p>
@@ -261,7 +271,9 @@ export default function Hero() {
             height: '240px',
             borderRadius: '50% 50% 0 0 / 90px 90px 0 0',
             background:
-              'linear-gradient(to bottom, transparent 0%, rgba(250,250,250,0.55) 30%, rgba(250,250,250,0.92) 75%, #fafafa 100%)',
+              theme === 'dark'
+                ? 'linear-gradient(to bottom, transparent 0%, rgba(12,13,14,0.55) 30%, rgba(12,13,14,0.95) 75%, #0c0d0e 100%)'
+                : 'linear-gradient(to bottom, transparent 0%, rgba(250,250,250,0.55) 30%, rgba(250,250,250,0.92) 75%, #fafafa 100%)',
           }}
         />
 
@@ -275,7 +287,7 @@ export default function Hero() {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-[1px] h-12 bg-neutral-300"
+            className="w-[1px] h-12 bg-neutral-300 dark:bg-neutral-700"
           />
         </motion.div>
       </section>

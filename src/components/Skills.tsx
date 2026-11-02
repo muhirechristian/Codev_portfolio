@@ -238,7 +238,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="bg-[#fafafa] py-24 lg:py-48 border-t hairline overflow-x-hidden"
+      className="bg-[#fafafa] dark:bg-[#0c0d0e] py-24 lg:py-48 border-t hairline overflow-x-hidden transition-colors duration-300"
     >
       <div className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
         <motion.div
@@ -249,12 +249,12 @@ export default function Skills() {
           {/* Section Header */}
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-20 mb-20 lg:mb-32">
             <motion.div className="lg:col-span-3" custom={0} variants={fadeVariants}>
-              <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 font-medium">
+              <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500 font-medium">
                 02 / Skills
               </span>
             </motion.div>
             <motion.div className="lg:col-span-9" custom={0.1} variants={fadeVariants}>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-normal tracking-tight text-black leading-tight">
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-normal tracking-tight text-black dark:text-white leading-tight">
                 Technologies & <br className="hidden md:block" />
                 Expertise.
               </h2>
@@ -264,8 +264,8 @@ export default function Skills() {
           {/* Verified Credentials */}
           <motion.div className="mb-24 lg:mb-32" custom={0.2} variants={fadeVariants}>
             <div className="flex items-center gap-3 mb-8 lg:mb-10">
-              <Award className="text-black w-5 h-5" />
-              <p className="text-xs tracking-[0.2em] uppercase text-black font-semibold">
+              <Award className="text-black dark:text-white w-5 h-5" />
+              <p className="text-xs tracking-[0.2em] uppercase text-black dark:text-white font-semibold">
                 Verified Credentials
               </p>
             </div>
@@ -275,7 +275,7 @@ export default function Skills() {
                 <button
                   key={cert.name}
                   onClick={() => setSelectedCert(cert)}
-                  className="group p-8 lg:p-10 border-r border-b hairline bg-white transition-colors duration-300 hover:bg-neutral-50 text-left focus:outline-none cursor-pointer"
+                  className="group p-8 lg:p-10 border-r border-b hairline bg-white dark:bg-neutral-900/60 transition-colors duration-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 text-left focus:outline-none cursor-pointer"
                 >
                   <div className="flex flex-col items-start">
                     <img
@@ -283,10 +283,10 @@ export default function Skills() {
                       alt={cert.name}
                       className="w-8 h-8 lg:w-10 lg:h-10 mb-6 lg:mb-8 object-contain"
                     />
-                    <h4 className="text-base lg:text-lg font-medium text-black mb-1">
+                    <h4 className="text-base lg:text-lg font-medium text-black dark:text-white mb-1">
                       {cert.name}
                     </h4>
-                    <span className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest group-hover:text-black transition-colors">
+                    <span className="text-[10px] text-neutral-400 dark:text-neutral-500 font-bold uppercase tracking-widest group-hover:text-black dark:group-hover:text-white transition-colors">
                       View Certificate →
                     </span>
                   </div>
@@ -299,22 +299,22 @@ export default function Skills() {
           <motion.div className="mb-24 lg:mb-32" custom={0.25} variants={fadeVariants}>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
               <div>
-                <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 block mb-3 font-medium">
+                <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500 block mb-3 font-medium">
                   Technical Architecture
                 </span>
-                <h3 className="text-2xl md:text-3xl font-normal text-black tracking-tight-custom">
+                <h3 className="text-2xl md:text-3xl font-normal text-black dark:text-white tracking-tight-custom">
                   Domain Competencies
                 </h3>
               </div>
 
               {/* Category Filter Controls */}
-              <div className="flex flex-wrap items-center gap-1.5 p-1 bg-neutral-200/60 rounded-xl">
+              <div className="flex flex-wrap items-center gap-1.5 p-1 bg-neutral-200/60 dark:bg-neutral-900 rounded-xl border hairline">
                 <button
                   onClick={() => setActiveTab('all')}
                   className={`px-3.5 py-1.5 text-xs font-medium rounded-lg transition-all cursor-pointer ${
                     activeTab === 'all'
-                      ? 'bg-white text-black shadow-xs'
-                      : 'text-neutral-600 hover:text-black'
+                      ? 'bg-white dark:bg-neutral-800 text-black dark:text-white shadow-xs font-semibold'
+                      : 'text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white'
                   }`}
                 >
                   All Domains
@@ -325,8 +325,8 @@ export default function Skills() {
                     onClick={() => setActiveTab(cat.id)}
                     className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all cursor-pointer whitespace-nowrap ${
                       activeTab === cat.id
-                        ? 'bg-white text-black shadow-xs'
-                        : 'text-neutral-600 hover:text-black'
+                        ? 'bg-white dark:bg-neutral-800 text-black dark:text-white shadow-xs font-semibold'
+                        : 'text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white'
                     }`}
                   >
                     {cat.title.split(' ')[0]}
@@ -341,22 +341,22 @@ export default function Skills() {
                 return (
                   <div
                     key={cat.id}
-                    className="p-8 border hairline bg-white rounded-2xl hover:border-black transition-all duration-300 group shadow-2xs hover:shadow-md flex flex-col justify-between"
+                    className="p-8 border hairline bg-white dark:bg-neutral-900/60 rounded-2xl hover:border-black dark:hover:border-white transition-all duration-300 group shadow-2xs hover:shadow-md flex flex-col justify-between"
                   >
                     <div>
-                      <div className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-700 group-hover:bg-black group-hover:text-white transition-colors mb-6">
+                      <div className="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center text-neutral-700 dark:text-neutral-200 group-hover:bg-black group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-black transition-colors mb-6">
                         <IconComponent className="w-5 h-5" />
                       </div>
-                      <h4 className="text-lg font-semibold text-black mb-5 tracking-tight">
+                      <h4 className="text-lg font-semibold text-black dark:text-white mb-5 tracking-tight">
                         {cat.title}
                       </h4>
                       <ul className="space-y-3">
                         {cat.skills.map((skill) => (
                           <li
                             key={skill}
-                            className="flex items-center gap-3 text-sm text-neutral-600 group-hover:text-black transition-colors"
+                            className="flex items-center gap-3 text-sm text-neutral-600 dark:text-neutral-400 group-hover:text-black dark:group-hover:text-white transition-colors"
                           >
-                            <span className="w-1.5 h-1.5 rounded-full bg-neutral-300 group-hover:bg-black transition-colors" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-neutral-300 dark:bg-neutral-600 group-hover:bg-black dark:group-hover:bg-white transition-colors" />
                             <span>{skill}</span>
                           </li>
                         ))}
@@ -370,18 +370,18 @@ export default function Skills() {
 
           {/* Core Areas of Interest Strip */}
           <motion.div
-            className="mb-24 lg:mb-32 p-8 lg:p-12 border hairline bg-white rounded-3xl shadow-2xs"
+            className="mb-24 lg:mb-32 p-8 lg:p-12 border hairline bg-white dark:bg-neutral-900/60 rounded-3xl shadow-2xs"
             custom={0.28}
             variants={fadeVariants}
           >
             <div className="flex items-center gap-3 mb-6">
-              <Target className="w-5 h-5 text-black" />
-              <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 font-semibold">
+              <Target className="w-5 h-5 text-black dark:text-white" />
+              <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500 font-semibold">
                 Strategic Research & Focus
               </span>
             </div>
 
-            <h3 className="text-2xl md:text-3xl font-normal text-black tracking-tight mb-8">
+            <h3 className="text-2xl md:text-3xl font-normal text-black dark:text-white tracking-tight mb-8">
               Core Areas of Interest
             </h3>
 
@@ -389,9 +389,9 @@ export default function Skills() {
               {areasOfInterest.map((area) => (
                 <div
                   key={area}
-                  className="px-5 py-3 border hairline rounded-full bg-neutral-50/80 hover:bg-black hover:text-white hover:border-black transition-all duration-300 group cursor-default"
+                  className="px-5 py-3 border hairline rounded-full bg-neutral-50/80 dark:bg-neutral-800/80 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black hover:border-black dark:hover:border-white transition-all duration-300 group cursor-default"
                 >
-                  <span className="text-xs sm:text-sm font-medium tracking-wide text-neutral-700 group-hover:text-white transition-colors">
+                  <span className="text-xs sm:text-sm font-medium tracking-wide text-neutral-700 dark:text-neutral-200 group-hover:text-white dark:group-hover:text-black transition-colors">
                     {area}
                   </span>
                 </div>
@@ -401,17 +401,17 @@ export default function Skills() {
 
           {/* Core Stack Marquee */}
           <motion.div
-            className="mb-24 lg:mb-32 py-16 border-y hairline bg-white/50"
+            className="mb-24 lg:mb-32 py-16 border-y hairline bg-white/50 dark:bg-neutral-900/30"
             custom={0.3}
             variants={fadeVariants}
           >
-            <p className="text-xs tracking-[0.2em] uppercase text-neutral-400 mb-10 px-0 font-medium text-center md:text-left">
+            <p className="text-xs tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500 mb-10 px-0 font-medium text-center md:text-left">
               Core Stack
             </p>
 
             <div className="relative overflow-hidden -mx-6 md:-mx-12 lg:-mx-20">
-              <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-linear-to-r from-[#fafafa] to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-linear-to-l from-[#fafafa] to-transparent z-10 pointer-events-none" />
+              <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-linear-to-r from-[#fafafa] dark:from-[#0c0d0e] to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-linear-to-l from-[#fafafa] dark:from-[#0c0d0e] to-transparent z-10 pointer-events-none" />
 
               {/* Row 1 Marquee */}
               <div className="marquee-container mb-6 overflow-hidden">
@@ -419,14 +419,14 @@ export default function Skills() {
                   {[...row1, ...row1, ...row1].map((tech, idx) => (
                     <div
                       key={`row1-${tech.name}-${idx}`}
-                      className="group flex items-center gap-3 px-6 py-3 lg:px-8 lg:py-4 mx-2 border hairline rounded-full bg-white hover:border-black transition-all duration-300 shadow-2xs"
+                      className="group flex items-center gap-3 px-6 py-3 lg:px-8 lg:py-4 mx-2 border hairline rounded-full bg-white dark:bg-neutral-900 hover:border-black dark:hover:border-white transition-all duration-300 shadow-2xs"
                     >
                       <img
                         src={tech.icon}
                         alt=""
                         className="w-4 h-4 lg:w-5 lg:h-5 grayscale opacity-60 group-hover:opacity-100 group-hover:grayscale-0 transition-all"
                       />
-                      <span className="text-xs lg:text-sm font-medium text-neutral-600 group-hover:text-black whitespace-nowrap transition-colors">
+                      <span className="text-xs lg:text-sm font-medium text-neutral-600 dark:text-neutral-300 group-hover:text-black dark:group-hover:text-white whitespace-nowrap transition-colors">
                         {tech.name}
                       </span>
                     </div>
@@ -440,14 +440,14 @@ export default function Skills() {
                   {[...row2, ...row2, ...row2].map((tech, idx) => (
                     <div
                       key={`row2-${tech.name}-${idx}`}
-                      className="group flex items-center gap-3 px-6 py-3 lg:px-8 lg:py-4 mx-2 border hairline rounded-full bg-white hover:border-black transition-all duration-300 shadow-2xs"
+                      className="group flex items-center gap-3 px-6 py-3 lg:px-8 lg:py-4 mx-2 border hairline rounded-full bg-white dark:bg-neutral-900 hover:border-black dark:hover:border-white transition-all duration-300 shadow-2xs"
                     >
                       <img
                         src={tech.icon}
                         alt=""
                         className="w-4 h-4 lg:w-5 lg:h-5 grayscale opacity-60 group-hover:opacity-100 group-hover:grayscale-0 transition-all"
                       />
-                      <span className="text-xs lg:text-sm font-medium text-neutral-600 group-hover:text-black whitespace-nowrap transition-colors">
+                      <span className="text-xs lg:text-sm font-medium text-neutral-600 dark:text-neutral-300 group-hover:text-black dark:group-hover:text-white whitespace-nowrap transition-colors">
                         {tech.name}
                       </span>
                     </div>
@@ -460,10 +460,10 @@ export default function Skills() {
           {/* Strategic & Team Capabilities */}
           <motion.div custom={0.4} variants={fadeVariants} className="mb-12">
             <div className="mb-12">
-              <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 block mb-4 font-medium">
+              <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500 block mb-4 font-medium">
                 Professional
               </span>
-              <h3 className="text-3xl lg:text-4xl font-normal text-black tracking-tight leading-tight">
+              <h3 className="text-3xl lg:text-4xl font-normal text-black dark:text-white tracking-tight leading-tight">
                 Strategic & Team <br className="hidden md:block" />
                 Capabilities.
               </h3>
@@ -473,19 +473,19 @@ export default function Skills() {
               {capabilities.map((cap, idx) => (
                 <div
                   key={idx}
-                  className="p-8 border-l hairline group hover:bg-white transition-all duration-500"
+                  className="p-8 border-l hairline group hover:bg-white dark:hover:bg-neutral-900/60 transition-all duration-500 rounded-r-2xl"
                 >
-                  <div className="text-neutral-300 group-hover:text-black transition-colors mb-6">
+                  <div className="text-neutral-400 dark:text-neutral-500 group-hover:text-black dark:group-hover:text-white transition-colors mb-6">
                     {cap.icon}
                   </div>
-                  <h4 className="text-lg font-semibold text-black mb-6 tracking-tight">
+                  <h4 className="text-lg font-semibold text-black dark:text-white mb-6 tracking-tight">
                     {cap.title}
                   </h4>
                   <ul className="space-y-4">
                     {cap.skills.map((skill) => (
                       <li key={skill} className="flex items-center gap-3">
-                        <div className="w-1 h-1 rounded-full bg-neutral-200 group-hover:bg-black transition-colors" />
-                        <span className="text-sm text-neutral-500 group-hover:text-black font-normal transition-colors">
+                        <div className="w-1 h-1 rounded-full bg-neutral-300 dark:bg-neutral-600 group-hover:bg-black dark:group-hover:bg-white transition-colors" />
+                        <span className="text-sm text-neutral-500 dark:text-neutral-400 group-hover:text-black dark:group-hover:text-white font-normal transition-colors">
                           {skill}
                         </span>
                       </li>
