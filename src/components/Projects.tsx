@@ -1,19 +1,19 @@
+import { useState } from 'react';
 import { motion } from 'motion/react';
 import dreamImage from '../assets/images/project_dream_ict_1793614255508.jpg';
 import asaabeImage from '../assets/images/project_asaabe_cafe_1793614255524.jpg';
 import codevImage from '../assets/images/project_codev_system_1793614255524.jpg';
+import ProjectCaseStudyModal, {
+  ProjectCaseStudyData,
+} from './ProjectCaseStudyModal.tsx';
 
-export interface ProjectItem {
-  title: string;
-  category: string;
-  description: string;
+export interface ProjectItem extends ProjectCaseStudyData {
   tags: string[];
-  year: string;
-  image: string;
-  link: string;
 }
 
 export default function Projects() {
+  const [activeProject, setActiveProject] = useState<ProjectItem | null>(null);
+
   const projects: ProjectItem[] = [
     {
       title: 'Dream',
@@ -24,6 +24,23 @@ export default function Projects() {
       year: '2024',
       image: dreamImage,
       link: 'https://dream-webiste.vercel.app/',
+      githubUrl: 'https://github.com/muhirechristian',
+      problem:
+        'In Kigali, procurement of enterprise ICT equipment and IT maintenance services was fragmented across physical storefronts with inconsistent pricing and no centralized availability or formal quotation flow.',
+      technologies: [
+        'React.js',
+        'TypeScript',
+        'Tailwind CSS',
+        'Vite',
+        'Modern State Hooks',
+        'Responsive UI Architecture',
+      ],
+      contribution: [
+        'Engineered responsive catalog with real-time category filtering and hardware spec sheets.',
+        'Architected a quotation basket permitting commercial buyers to assemble items and submit requests directly.',
+        'Implemented modern accessible UI with crisp contrast ratios and high-performance image rendering.',
+        'Leveraged AI-assisted development workflows to accelerate iterative delivery and code quality.',
+      ],
     },
     {
       title: 'Asaabe Cozy Corner',
@@ -34,6 +51,22 @@ export default function Projects() {
       year: '2026',
       image: asaabeImage,
       link: 'https://asaabe-cozy-corner.vercel.app/',
+      githubUrl: 'https://github.com/muhirechristian',
+      problem:
+        'Scenic hospitality venues along Lake Kivu faced dining bottlenecks during busy tourist influxes—lengthy physical menu handoffs, delays for travellers in transit, and manual paper booking management.',
+      technologies: [
+        'React.js',
+        'TypeScript',
+        'Tailwind CSS',
+        'TanStack Query',
+        'Component Architecture',
+      ],
+      contribution: [
+        'Created an interactive digital menu featuring categorized dishes, allergen notices, and custom beverage orders.',
+        'Built an intuitive table reservation and transit pre-order module to minimize dining delays.',
+        'Integrated theme support matching Lake Kivu day and evening ambiences.',
+        'Optimized client-side bundle performance for reliable access across mobile cell data.',
+      ],
     },
     {
       title: 'Codev Management System',
@@ -44,6 +77,23 @@ export default function Projects() {
       year: '2025',
       image: codevImage,
       link: 'https://codev-management-system.vercel.app/',
+      githubUrl: 'https://github.com/muhirechristian',
+      problem:
+        'Growing African enterprises frequently suffer from inventory shrinkage, delayed stock reorders, and disconnected accounting ledgers caused by manual paperwork and spreadsheet silos.',
+      technologies: [
+        'React.js',
+        'TypeScript',
+        'Node.js',
+        'Express.js',
+        'MySQL Database',
+        'RESTful APIs',
+      ],
+      contribution: [
+        'Designed normalized relational MySQL database schemas for warehouses, stock items, suppliers, and sales orders.',
+        'Developed secure REST API endpoints in Express.js with input validation and transactional consistency.',
+        'Constructed interactive dashboard analytics highlighting inventory velocity and threshold alerts.',
+        'Demonstrated Christian’s enterprise software engineering standards and scalable data design.',
+      ],
     },
   ];
 
@@ -91,11 +141,18 @@ export default function Projects() {
                 custom={0.1 * (idx + 1)}
                 variants={fadeVariants}
               >
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block flex-1"
+                <div
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setActiveProject(project)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setActiveProject(project);
+                    }
+                  }}
+                  className="block flex-1 text-left cursor-pointer focus:outline-none"
+                  aria-label={`View Case Study for ${project.title}`}
                 >
                   {/* Card Image */}
                   <div className="relative aspect-16/10 bg-neutral-100 dark:bg-neutral-900 rounded-2xl overflow-hidden mb-8 border hairline group-hover:shadow-2xl group-hover:shadow-black/10 dark:group-hover:shadow-white/5 transition-all duration-700 ease-[0.22,1,0.36,1]">
@@ -119,6 +176,9 @@ export default function Projects() {
                         {project.category}
                       </span>
                       <div className="h-[1px] w-8 bg-neutral-200 dark:bg-neutral-800" />
+                      <span className="text-[10px] uppercase tracking-widest text-neutral-400 dark:text-neutral-500 group-hover:text-black dark:group-hover:text-white transition-colors">
+                        Case Study &rarr;
+                      </span>
                     </div>
 
                     <h3 className="text-2xl md:text-3xl font-normal tracking-tight-custom text-black dark:text-white mb-4 group-hover:translate-x-1 transition-transform duration-500">
@@ -140,12 +200,18 @@ export default function Projects() {
                       ))}
                     </div>
                   </div>
-                </a>
+                </div>
               </motion.article>
             ))}
           </div>
         </motion.div>
       </div>
+
+      {/* Project Case Study Modal */}
+      <ProjectCaseStudyModal
+        project={activeProject}
+        onClose={() => setActiveProject(null)}
+      />
     </section>
   );
 }

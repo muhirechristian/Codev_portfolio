@@ -1,13 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, Download } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext.tsx';
 
-interface NavbarProps {
-  onOpenInquiries?: () => void;
-}
-
-export default function Navbar({ onOpenInquiries }: NavbarProps) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
@@ -100,7 +96,7 @@ export default function Navbar({ onOpenInquiries }: NavbarProps) {
   return (
     <>
       <motion.nav
-        className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 lg:px-20 py-6 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 px-5 sm:px-8 md:px-12 lg:px-20 py-4 sm:py-6 transition-all duration-300 ${
           isScrolled
             ? 'bg-[#fafafa]/85 dark:bg-[#0c0d0e]/85 backdrop-blur-md border-b hairline shadow-2xs'
             : 'bg-transparent'
@@ -122,22 +118,34 @@ export default function Navbar({ onOpenInquiries }: NavbarProps) {
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-10">
+          <div className="hidden md:flex items-center gap-8 lg:gap-10">
             {navLinks.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="text-sm font-normal text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white transition-colors duration-300 cursor-pointer"
+                className="text-sm font-medium text-neutral-700 hover:text-black dark:text-neutral-200 dark:hover:text-white transition-colors duration-200 cursor-pointer"
               >
                 {item.name}
               </a>
             ))}
 
+            {/* Recruiter Resume Download */}
+            <a
+              href="/Muhire_Bagina_Christian_CV.pdf"
+              download="Muhire_Bagina_Christian_CV.pdf"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-700 hover:text-black dark:text-neutral-200 dark:hover:text-white transition-colors duration-200 cursor-pointer"
+              title="Download Official CV (PDF)"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Resume</span>
+            </a>
+
             {/* Desktop Theme Toggle Button */}
             <button
+              type="button"
               onClick={toggleTheme}
-              className="w-10 h-10 rounded-full flex items-center justify-center border hairline bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-200 transition-all duration-300 cursor-pointer shadow-2xs"
+              className="w-10 h-10 rounded-full flex items-center justify-center border hairline bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-800 text-neutral-800 dark:text-neutral-100 transition-all duration-300 cursor-pointer shadow-2xs"
               title={theme === 'dark' ? 'Switch to Light mode' : 'Switch to Dark mode'}
               aria-label={theme === 'dark' ? 'Switch to Light mode' : 'Switch to Dark mode'}
             >
@@ -179,6 +187,7 @@ export default function Navbar({ onOpenInquiries }: NavbarProps) {
           <div className="flex md:hidden items-center gap-3">
             {/* Mobile Quick Theme Toggle */}
             <button
+              type="button"
               onClick={toggleTheme}
               className="w-9 h-9 rounded-full flex items-center justify-center border hairline bg-neutral-100/90 dark:bg-neutral-900/90 text-neutral-700 dark:text-neutral-200 transition-all cursor-pointer"
               title={theme === 'dark' ? 'Switch to Light mode' : 'Switch to Dark mode'}
@@ -193,6 +202,7 @@ export default function Navbar({ onOpenInquiries }: NavbarProps) {
 
             {/* Mobile Hamburger Button */}
             <button
+              type="button"
               onClick={() => setIsOpen(!isOpen)}
               className="relative z-50 w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none cursor-pointer"
               aria-label="Toggle menu"
@@ -244,9 +254,23 @@ export default function Navbar({ onOpenInquiries }: NavbarProps) {
               ))}
 
               <motion.a
-                href="#contact"
-                className="mt-4 w-full py-3 border border-black dark:border-white rounded-full text-base font-normal bg-black dark:bg-white text-white dark:text-black hover:bg-transparent hover:text-black dark:hover:bg-transparent dark:hover:text-white transition-all duration-300 text-center cursor-pointer"
+                href="/Muhire_Bagina_Christian_CV.pdf"
+                download="Muhire_Bagina_Christian_CV.pdf"
+                className="inline-flex items-center gap-2 text-xl font-normal text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white transition-colors cursor-pointer tracking-tight"
                 custom={navLinks.length}
+                initial="closed"
+                animate="open"
+                variants={itemVariants}
+                onClick={() => setIsOpen(false)}
+              >
+                <Download className="w-4 h-4" />
+                <span>Download Resume (PDF)</span>
+              </motion.a>
+
+              <motion.a
+                href="#contact"
+                className="mt-2 w-full py-3 border border-black dark:border-white rounded-full text-base font-normal bg-black dark:bg-white text-white dark:text-black hover:bg-transparent hover:text-black dark:hover:bg-transparent dark:hover:text-white transition-all duration-300 text-center cursor-pointer"
+                custom={navLinks.length + 1}
                 initial="closed"
                 animate="open"
                 variants={itemVariants}
@@ -258,7 +282,7 @@ export default function Navbar({ onOpenInquiries }: NavbarProps) {
               {/* Mobile Dedicated Theme Toggle Switch */}
               <motion.div
                 className="mt-6 flex items-center justify-between w-full p-2 rounded-2xl border hairline bg-neutral-100 dark:bg-neutral-900"
-                custom={navLinks.length + 1}
+                custom={navLinks.length + 2}
                 initial="closed"
                 animate="open"
                 variants={itemVariants}
@@ -268,6 +292,7 @@ export default function Navbar({ onOpenInquiries }: NavbarProps) {
                 </span>
                 <div className="flex items-center gap-1">
                   <button
+                    type="button"
                     onClick={() => theme !== 'light' && toggleTheme()}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
                       theme === 'light'
@@ -279,6 +304,7 @@ export default function Navbar({ onOpenInquiries }: NavbarProps) {
                     <span>Light</span>
                   </button>
                   <button
+                    type="button"
                     onClick={() => theme !== 'dark' && toggleTheme()}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
                       theme === 'dark'
@@ -291,22 +317,6 @@ export default function Navbar({ onOpenInquiries }: NavbarProps) {
                   </button>
                 </div>
               </motion.div>
-
-              {onOpenInquiries && (
-                <motion.button
-                  onClick={() => {
-                    setIsOpen(false);
-                    onOpenInquiries();
-                  }}
-                  className="mt-2 text-xs tracking-[0.2em] uppercase text-neutral-400 hover:text-black dark:hover:text-white transition-colors cursor-pointer"
-                  custom={navLinks.length + 2}
-                  initial="closed"
-                  animate="open"
-                  variants={itemVariants}
-                >
-                  View Inquiries Dashboard
-                </motion.button>
-              )}
             </div>
           </motion.div>
         )}

@@ -8,10 +8,11 @@ import {
   Server,
   Code2,
   Sparkles,
-  Smartphone,
-  Cloud,
   Download,
   Eye,
+  Briefcase,
+  GraduationCap,
+  Award,
 } from 'lucide-react';
 import CvPreviewModal from './CvPreviewModal.tsx';
 
@@ -56,12 +57,15 @@ function TextReveal({
 export default function About() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [showCvModal, setShowCvModal] = useState(false);
-  const cvFilePath = '/assets/aistudio/Muhire_Bagina_Christian5CV_a0cd1b7f.pdf';
+  const cvFilePath = '/Muhire_Bagina_Christian_CV.pdf';
+  const cvFallbackPath = '/assets/aistudio/Muhire_Bagina_Christian5CV_a0cd1b7f.pdf';
 
   const handleDownloadCv = async (e: React.MouseEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch(cvFilePath);
+      const targetPath = cvFilePath;
+      const response = await fetch(targetPath);
+      if (!response.ok) throw new Error('Primary not reachable');
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -72,7 +76,7 @@ export default function About() {
       document.body.removeChild(link);
       setTimeout(() => window.URL.revokeObjectURL(blobUrl), 1000);
     } catch {
-      window.open(cvFilePath, '_blank');
+      window.open(cvFallbackPath, '_blank');
     }
   };
 
@@ -127,43 +131,86 @@ export default function About() {
     },
   ];
 
+  const experienceTimeline = [
+    {
+      period: '2026',
+      title: 'EjoLabs Summer Talent Program',
+      role: 'Selected Participant & Emerging Tech Fellow',
+      organization: 'EjoLabs Initiative • Kigali, Rwanda',
+      description:
+        'Selected for an intensive technology development program focused on applied Artificial Intelligence, neural networks, collaborative hackathons, and practical digital product engineering.',
+      icon: Sparkles,
+      highlight: 'Applied AI & Emerging Technologies',
+    },
+    {
+      period: '2024 – 2025',
+      title: 'Software Development Training & Teaching Experience',
+      role: 'Technology Trainer & Facilitator',
+      organization: 'CA TechWorks & Technical Training Seminars',
+      description:
+        'Supported digital literacy and software education for youth. Delivered practical instruction in programming fundamentals, React.js frontend architecture, Express.js REST APIs, and MySQL relational schemas.',
+      icon: Briefcase,
+      highlight: 'Technical Education & Mentorship',
+    },
+    {
+      period: '2024 – 2025',
+      title: 'Technical & Professional Certifications',
+      role: 'Certified Competencies',
+      organization: 'Cisco Networking Academy & University of Helsinki / MinnaLearn',
+      description:
+        'Earned accredited qualifications: Cisco Networking & Systems (routing, IP architectures, security) and Elements of AI (foundations of machine learning, neural networks, and probability).',
+      icon: Award,
+      highlight: 'Networks, Security & AI',
+    },
+    {
+      period: 'Sept 2022 – July 2025',
+      title: 'Secondary Technical Education — Software Development',
+      role: 'TVET Level 5 Graduate',
+      organization: 'Lycee Saint Alexandre Sauli De Muhura',
+      description:
+        'Three years of intensive technical curriculum in software engineering, data structures, algorithms, relational database design, and object-oriented principles. Graduated with 70% in national examinations with honors.',
+      icon: GraduationCap,
+      highlight: 'National Examination Honors',
+    },
+  ];
+
   const codevSpecializations = [
     {
-      title: 'Web Development',
-      desc: 'Building modern, responsive, and user-friendly websites and web applications using React.js, Node.js, Express.js, and Tailwind CSS.',
-      icon: Globe,
-    },
-    {
-      title: 'Mobile App Development',
-      desc: 'Creating high-performance cross-platform mobile applications using React Native and Flutter.',
-      icon: Smartphone,
-    },
-    {
-      title: 'Artificial Intelligence',
-      desc: 'Developing AI-powered solutions, intelligent systems, and machine learning applications using Python.',
-      icon: Cpu,
-    },
-    {
-      title: 'Database Management',
-      desc: 'Designing secure, normalized, and scalable database systems using MySQL, PostgreSQL, and MongoDB.',
-      icon: Database,
-    },
-    {
-      title: 'Software Engineering',
-      desc: 'Building institutional management systems, business automation tools, and customized software solutions.',
+      title: 'Full-Stack Software Development',
+      desc: 'Building responsive, scalable web and desktop applications engineered with React.js, Node.js, Express.js, TypeScript, and modern Tailwind CSS.',
       icon: Layers,
     },
     {
-      title: 'Cloud & Modern Tech',
-      desc: 'Exploring cloud computing, resilient APIs, cybersecurity best practices, and scalable software infrastructure.',
-      icon: Cloud,
+      title: 'AI-Powered Solutions',
+      desc: 'Developing intelligent systems, generative AI integrations, and practical machine learning applications tailored to solve tangible problems.',
+      icon: Cpu,
+    },
+    {
+      title: 'Business Management Systems',
+      desc: 'Designing end-to-end operational software, warehouse inventory tracking, sales automation, and institutional workflows for African SMEs.',
+      icon: Server,
+    },
+    {
+      title: 'Digital Innovation',
+      desc: 'Leveraging modern software architecture, APIs, and agile practices to replace paper-bound processes with fast, resilient digital tools.',
+      icon: Globe,
+    },
+    {
+      title: 'Solutions for African Communities',
+      desc: 'Creating accessible, localized technologies that empower Rwandan and regional businesses, foster digital inclusion, and generate youth opportunities.',
+      icon: Sparkles,
+    },
+    {
+      title: 'Scalable Databases & Cloud Infrastructure',
+      desc: 'Designing secure, normalized database architectures using MySQL, PostgreSQL, and MongoDB alongside resilient cloud APIs.',
+      icon: Database,
     },
   ];
 
   return (
     <section id="about" className="bg-[#fafafa] dark:bg-[#0c0d0e] relative z-10 border-t hairline transition-colors duration-300">
-      {/* 250vh Sticky Text Reveal Section */}
-      <div ref={containerRef} style={{ height: '250vh' }}>
+      {/* Desktop 250vh Sticky Text Reveal Section */}
+      <div ref={containerRef} className="hidden lg:block" style={{ height: '250vh' }}>
         <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
             <motion.div
@@ -184,6 +231,18 @@ export default function About() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Mobile & Tablet Compact About Presentation (Immediate Visibility without Empty Vertical Gaps) */}
+      <div className="block lg:hidden pt-12 sm:pt-16 pb-6 px-6 sm:px-10 max-w-[1400px] mx-auto">
+        <div className="mb-3">
+          <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500 font-medium">
+            01 / About
+          </span>
+        </div>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-normal leading-[1.3] tracking-tight-custom text-black dark:text-white">
+          Hey there! I&apos;m <span className="font-semibold text-black dark:text-white">Muhire Christian</span>, a software developer from Rwanda passionate about building practical digital solutions through software engineering, full-stack development and artificial intelligence.
+        </h2>
       </div>
 
       {/* Narrative & Details Section */}
@@ -260,7 +319,63 @@ export default function About() {
               </div>
             </motion.div>
 
-            {/* My Vision for Codev (Replaces YouTube video) */}
+            {/* Professional Experience & Achievements Timeline */}
+            <motion.div
+              className="mt-16 pt-16 border-t hairline"
+              custom={0.25}
+              variants={fadeInVariants}
+            >
+              <div className="mb-10">
+                <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 dark:text-neutral-500 block mb-3 font-medium">
+                  Trajectory & Background
+                </span>
+                <h3 className="text-2xl md:text-3xl font-normal text-black dark:text-white tracking-tight-custom">
+                  Experience & Key Milestones
+                </h3>
+              </div>
+
+              <div className="relative pl-6 sm:pl-8 border-l hairline space-y-10">
+                {experienceTimeline.map((item, index) => {
+                  const ItemIcon = item.icon;
+                  return (
+                    <div key={index} className="relative group">
+                      {/* Timeline dot */}
+                      <div className="absolute -left-[31px] sm:-left-[39px] top-1 w-4 h-4 rounded-full border hairline bg-white dark:bg-neutral-900 flex items-center justify-center group-hover:border-black dark:group-hover:border-white transition-colors">
+                        <div className="w-1.5 h-1.5 rounded-full bg-neutral-400 group-hover:bg-black dark:group-hover:bg-white transition-colors" />
+                      </div>
+
+                      <div className="p-6 rounded-2xl border hairline bg-white dark:bg-neutral-900/70 shadow-xs hover:border-black dark:hover:border-white transition-all duration-300">
+                        <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                          <span className="text-xs font-semibold uppercase tracking-widest text-neutral-500 dark:text-neutral-400">
+                            {item.period}
+                          </span>
+                          <span className="px-3 py-1 rounded-full text-[10px] font-medium uppercase tracking-wider bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border hairline">
+                            {item.highlight}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2.5 mb-1.5">
+                          <ItemIcon className="w-4 h-4 text-black dark:text-white shrink-0" />
+                          <h4 className="text-lg font-medium text-black dark:text-white">
+                            {item.title}
+                          </h4>
+                        </div>
+
+                        <p className="text-xs font-medium text-neutral-700 dark:text-neutral-300 mb-3">
+                          {item.role} &mdash; <span className="text-neutral-500 dark:text-neutral-400">{item.organization}</span>
+                        </p>
+
+                        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed font-normal">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+
+            {/* My Vision for Codev – Building Technology That Matters */}
             <motion.div
               className="mt-16 pt-16 border-t hairline"
               custom={0.3}
@@ -271,7 +386,7 @@ export default function About() {
                   <div className="flex items-center gap-3 mb-4">
                     <Sparkles className="w-5 h-5 text-amber-400" />
                     <span className="text-xs tracking-[0.2em] uppercase text-neutral-400 font-medium">
-                      Future Roadmap & Venture
+                      Long-Term Entrepreneurial Ambition
                     </span>
                   </div>
 
@@ -282,15 +397,15 @@ export default function About() {
                     </span>
                   </h3>
 
-                  <p className="text-neutral-300 text-base sm:text-lg leading-relaxed max-w-3xl mb-10 font-normal">
-                    My long-term vision is to establish <strong>Codev</strong>, a technology company
-                    dedicated to developing innovative digital solutions that solve real-world problems
-                    and create meaningful impact in society.
+                  <p className="text-neutral-300 text-base sm:text-lg leading-relaxed max-w-3xl mb-8 font-normal">
+                    My long-term ambition is to establish <strong>Codev</strong> as an innovative technology company
+                    dedicated to developing high-impact digital solutions that solve real-world problems and
+                    advance Rwanda&apos;s and Africa&apos;s digital transformation.
                   </p>
 
-                  <div className="mb-6">
+                  <div className="mb-8">
                     <span className="text-xs tracking-[0.15em] uppercase text-neutral-400 font-semibold block mb-4">
-                      I Envision Codev Specializing In:
+                      Strategic Focus Areas I Envision For Codev:
                     </span>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {codevSpecializations.map((item) => {
@@ -315,7 +430,7 @@ export default function About() {
                     </div>
                   </div>
 
-                  <div className="mt-8 p-6 sm:p-8 rounded-2xl bg-neutral-800/40 border border-neutral-700/50 relative">
+                  <div className="p-6 sm:p-8 rounded-2xl bg-neutral-800/40 border border-neutral-700/50 relative">
                     <p className="text-neutral-300 leading-relaxed text-sm sm:text-base font-normal">
                       &ldquo;My ambition is to grow Codev into a company that empowers businesses,
                       improves people&apos;s lives through technology, creates employment opportunities
