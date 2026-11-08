@@ -12,6 +12,7 @@ import {
   Cpu,
   Wrench,
   Target,
+  ShieldCheck,
 } from 'lucide-react';
 import CertificateModal, { CertificateData } from './CertificateModal.tsx';
 
@@ -28,8 +29,15 @@ export default function Skills() {
       issueDate: '2024',
       credentialId: 'CISCO-NA-2024-RW',
       certLink: 'https://www.netacad.com/',
-      skills: ['Network Architecture', 'IP Addressing & Subnetting', 'Routing Protocols', 'Network Security', 'Troubleshooting'],
-      description: 'Comprehensive certification in computer networks, routing, switching, system security, and infrastructure administration from Cisco Networking Academy.',
+      skills: [
+        'Network Architecture',
+        'IP Addressing & Subnetting',
+        'Routing Protocols',
+        'Network Security',
+        'Cybersecurity Fundamentals',
+        'Troubleshooting',
+      ],
+      description: 'Comprehensive certification in computer networks, routing, switching, network security, infrastructure administration, and cyber threat awareness from Cisco Networking Academy.',
     },
     {
       id: 'elements-ai',
@@ -39,8 +47,15 @@ export default function Skills() {
       issueDate: '2024',
       credentialId: 'EOAI-UH-948124',
       certLink: 'https://www.elementsofai.com/',
-      skills: ['Machine Learning Fundamentals', 'Neural Networks', 'Probability & Search', 'Bayesian Logic', 'Societal AI Implications'],
-      description: 'Accredited international qualification covering foundational machine learning algorithms, deep neural network concepts, and real-world AI applications.',
+      skills: [
+        'Python Programming for AI',
+        'Machine Learning Fundamentals',
+        'Neural Networks',
+        'Generative AI & LLMs',
+        'Probability & Search',
+        'AI Ethics & Implications',
+      ],
+      description: 'Accredited international qualification covering foundational machine learning algorithms, deep neural network concepts, probabilistic modeling, and real-world AI applications.',
     },
     {
       id: 'tvet-software',
@@ -50,7 +65,7 @@ export default function Skills() {
       issueDate: 'July 2025',
       credentialId: 'TVET-L5-MUHURA-2025',
       skills: ['Full-Stack Systems', 'Relational Databases (MySQL, PostgreSQL)', 'API Architecture', 'OOP Principles', 'Software Lifecycle'],
-      description: 'Secondary Education in Software Development (Sept 2022 – July 2025) at Lycee Saint Alexandre Sauli De Muhura. Graduated with 70% in national examinations.',
+      description: 'Secondary Education in Software Development (Sept 2022 – July 2025) at Lycee Saint Alexandre Sauli De Muhura. Graduated with 70% in national examinations with honors.',
     },
     {
       id: 'ejolabs-fellow',
@@ -60,16 +75,50 @@ export default function Skills() {
       issueDate: '2026',
       credentialId: 'EJOLABS-STP-2026-MC',
       certLink: 'https://github.com/muhirechristian',
-      skills: ['Applied AI Engineering', 'React Architecture', 'Youth Mentorship', 'Product Delivery', 'Collaborative Hackathons'],
-      description: 'Selected participant in technology development program focused on Artificial Intelligence and emerging technologies.',
+      skills: [
+        'Applied AI Engineering',
+        'Prompt Engineering & AI Tools',
+        'React Architecture',
+        'Youth Mentorship',
+        'Collaborative Hackathons',
+      ],
+      description: 'Selected participant in technology development program focused on applied Artificial Intelligence, large language models, neural networks, and emerging digital innovations.',
     },
   ];
 
   // Detailed Categorized Expertise
   const skillCategories = [
     {
+      id: 'ai',
+      title: 'Artificial Intelligence & Machine Learning',
+      shortTitle: 'AI & ML',
+      icon: Cpu,
+      skills: [
+        'Python programming for AI development',
+        'Machine Learning fundamentals',
+        'Generative AI and Large Language Models (LLMs)',
+        'Prompt Engineering and AI-assisted development',
+        'AI API integration and intelligent application development',
+        'Data processing and automation',
+      ],
+    },
+    {
+      id: 'cybersecurity',
+      title: 'Cybersecurity & Systems Defense',
+      shortTitle: 'Cybersecurity',
+      icon: ShieldCheck,
+      skills: [
+        'Network Security & Threat Mitigation',
+        'Cisco Networking & Systems Administration',
+        'Secure API Architecture & Auth (OAuth / JWT)',
+        'Data Protection & Privacy Protocols',
+        'System Hardening & Vulnerability Assessment',
+      ],
+    },
+    {
       id: 'frontend',
-      title: 'Frontend Development',
+      title: 'Frontend Engineering',
+      shortTitle: 'Frontend',
       icon: Layout,
       skills: [
         'React.js',
@@ -83,7 +132,8 @@ export default function Skills() {
     },
     {
       id: 'backend',
-      title: 'Backend Development',
+      title: 'Backend & API Development',
+      shortTitle: 'Backend',
       icon: Server,
       skills: [
         'Node.js',
@@ -91,11 +141,26 @@ export default function Skills() {
         'RESTful APIs',
         'Python',
         'PHP',
+        'Backend Data Pipelines',
+      ],
+    },
+    {
+      id: 'databases',
+      title: 'Databases & Data Management',
+      shortTitle: 'Databases',
+      icon: Database,
+      skills: [
+        'MySQL',
+        'PostgreSQL',
+        'MongoDB',
+        'Supabase',
+        'Relational Data Modeling',
       ],
     },
     {
       id: 'mobile',
-      title: 'Mobile Development',
+      title: 'Mobile App Development',
+      shortTitle: 'Mobile',
       icon: Smartphone,
       skills: [
         'React Native',
@@ -104,30 +169,9 @@ export default function Skills() {
       ],
     },
     {
-      id: 'databases',
-      title: 'Databases',
-      icon: Database,
-      skills: [
-        'MySQL',
-        'PostgreSQL',
-        'MongoDB',
-        'Supabase',
-      ],
-    },
-    {
-      id: 'ai',
-      title: 'Artificial Intelligence & Machine Learning',
-      icon: Cpu,
-      skills: [
-        'Python for AI & ML',
-        'AI-Powered Application Development',
-        'Machine Learning Fundamentals',
-        'Generative AI Integration',
-      ],
-    },
-    {
       id: 'tools',
-      title: 'Tools & Technologies',
+      title: 'DevOps & Tools',
+      shortTitle: 'Tools',
       icon: Wrench,
       skills: [
         'Git & GitHub',
@@ -141,39 +185,40 @@ export default function Skills() {
 
   // Core Areas of Interest
   const areasOfInterest = [
-    'Software Engineering',
     'Artificial Intelligence',
+    'Machine Learning & LLMs',
     'Cybersecurity',
-    'Cloud Computing',
-    'Data Science',
-    'Blockchain Technology',
+    'Prompt Engineering',
+    'Python & Data Automation',
+    'Full-Stack Software Engineering',
+    'Cloud Computing & Networks',
     'Technology Entrepreneurship',
   ];
 
   // Core Tech Stack for Continuous Marquee
   const coreStack = [
+    { name: 'Python for AI', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
     { name: 'React.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { name: 'Machine Learning', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg' },
     { name: 'JavaScript (ES6+)', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
     { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
     { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+    { name: 'Cybersecurity', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/networkx/networkx-original.svg' },
     { name: 'Express.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg' },
-    { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+    { name: 'Generative AI & LLMs', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
     { name: 'React Native', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-    { name: 'Flutter', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg' },
-    { name: 'Dart', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg' },
     { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
     { name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
     { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+    { name: 'Prompt Engineering', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
     { name: 'Supabase', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg' },
     { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
-    { name: 'Bootstrap', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg' },
-    { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+    { name: 'Data Automation', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' },
     { name: 'Git & GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
     { name: 'Postman', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg' },
     { name: 'Vercel', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg' },
     { name: 'Firebase', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
     { name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
-    { name: 'AI & Machine Learning', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg' },
   ];
 
   // Professional capabilities matching reference structure
@@ -206,8 +251,8 @@ export default function Skills() {
       skills: [
         'Complex Problem-Solving',
         'Critical Thinking',
-        'API Design & Optimization',
-        'Growth Mindset',
+        'AI Solution Architecture',
+        'Security Best Practices',
         'Continuous Adaptability',
       ],
     },
@@ -329,7 +374,7 @@ export default function Skills() {
                         : 'text-neutral-600 dark:text-neutral-400 hover:text-black dark:hover:text-white'
                     }`}
                   >
-                    {cat.title.split(' ')[0]}
+                    {cat.shortTitle || cat.title.split(' ')[0]}
                   </button>
                 ))}
               </div>

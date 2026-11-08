@@ -13,6 +13,7 @@ import {
   Briefcase,
   GraduationCap,
   Award,
+  ShieldCheck,
 } from 'lucide-react';
 import CvPreviewModal from './CvPreviewModal.tsx';
 
@@ -105,29 +106,29 @@ export default function About() {
       icon: Layers,
     },
     {
-      title: 'Web Development',
-      desc: 'Performant, accessible, and responsive modern web experiences crafted with React & Vite.',
+      title: 'AI & Machine Learning',
+      desc: 'Python AI development, Generative AI, LLMs, prompt engineering, and intelligent workflow automation.',
+      icon: Cpu,
+    },
+    {
+      title: 'Cybersecurity & Systems',
+      desc: 'Network threat mitigation, Cisco infrastructure administration, secure API auth, and data privacy.',
+      icon: ShieldCheck,
+    },
+    {
+      title: 'Web & Mobile Apps',
+      desc: 'Performant, accessible, and responsive modern web experiences crafted with React & modern frameworks.',
       icon: Globe,
     },
     {
       title: 'Business Management Systems',
-      desc: 'Tailored enterprise software, inventory systems, and operational workflow platforms.',
+      desc: 'Tailored enterprise software, inventory systems, and operational workflow platforms for SMEs.',
       icon: Server,
     },
     {
-      title: 'Database Development',
+      title: 'Database Architecture',
       desc: 'Robust relational and document schemas utilizing MySQL, PostgreSQL, and MongoDB.',
       icon: Database,
-    },
-    {
-      title: 'API Development',
-      desc: 'RESTful architectures, microservices, and secure third-party integrations with Node & Express.',
-      icon: Code2,
-    },
-    {
-      title: 'AI-Powered Applications',
-      desc: 'Intelligent automation, natural language workflows, and machine learning model integration.',
-      icon: Cpu,
     },
   ];
 
